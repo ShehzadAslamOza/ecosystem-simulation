@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>680</x>
+      <y>30</y>
+      <w>250</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>LivingThing
+--
+# ID: String 
+# center: Point
+# color: Color
+# isAlive: boolean
+# size: int
+# speed: int 
+# timeToLive: int
+# shape:Circle
+
+--
+
+# Die(): void
+# GrowBy(growBy: int): void
+# move(x: int, y:int): void 
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>1110</x>
+      <y>30</y>
+      <w>200</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>/Hunter/
+--
+# target : String
+
+--
+
+# chooseTarget(): void
+# chaseTarget(): void
+# eat(): void
+# checkCollision(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>510</x>
+      <y>400</y>
+      <w>230</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Plant
+
+--
+
+_+ maxSize :int _
+- timeBeforeGrow: int
+
+--
+
++ Plant()
++ update(): void
++ draw(g: Graphics): void
++ generatePlantID: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>260</y>
+      <w>210</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>190;30;190;80;30;80;30;140</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>500</x>
+      <y>630</y>
+      <w>260</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>PlantGenerator
+--
+
+_- instance: PlantGenerator_
+
+--
+
+- PlantGenerator()
+_+ getInstance(): PlantGenerator_
++ generatePlant(): Plant</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>80</x>
+      <y>400</y>
+      <w>310</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>PlantManager
+--
++ plantList: ArrayList&lt;Plant&gt;
+- plantGenerator: PlantGenerator
+_+ totalPlantsExisted: int_
+- numOfPlantsToGrow: int
+
+--
+
+- growNewPlants(num: int): void
+- updatePlants(Graphics g): void
++ updatePlantManager(Graphics g): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>540</x>
+      <y>520</y>
+      <w>128</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+generates</panel_attributes>
+    <additional_attributes>70;30;70;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>450</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;150;30</additional_attributes>
+  </element>
+</diagram>
