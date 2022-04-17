@@ -23,11 +23,19 @@ public abstract class LivingThing {
         this.shape = new Circle(size,center,color);
     }
 
-    protected void move(int x,int y) {
+    protected void moveBy(int x,int y) {
         this.center.x += x;
         this.center.y += y;
 
         // Logic for corners need to implement
+    }
+
+    public boolean isDead() {
+        return !this.isAlive;
+    }
+
+    public void draw(Graphics g) {
+        shape.draw(g);
     }
 
     // protected generateOffSprings

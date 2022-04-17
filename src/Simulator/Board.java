@@ -1,5 +1,6 @@
 package Simulator;
 
+import Managers.HerbivoreManager;
 import Managers.PlantManager;
 
 import java.awt.Color;
@@ -15,8 +16,10 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener {
 
-    public static final int B_WIDTH = 350;
-    public static final int B_HEIGHT = 350;
+//    public static final int B_WIDTH = 350;
+//    public static final int B_HEIGHT = 350;
+    public static final int B_WIDTH = 800;
+    public static final int B_HEIGHT = 600;
     private final int INITIAL_X = -40;
     private final int INITIAL_Y = -40;
     private final int DELAY = 25;
@@ -25,6 +28,7 @@ public class Board extends JPanel implements ActionListener {
     private int x, y;
 
     PlantManager plantManager = new PlantManager();
+    HerbivoreManager herbivoreManager = new HerbivoreManager();
 
     public Board() {
 
@@ -56,6 +60,7 @@ public class Board extends JPanel implements ActionListener {
 
         Toolkit.getDefaultToolkit().sync();
         plantManager.updatePlantManager(g);
+        herbivoreManager.updateHerbivoreManager(g);
 
     }
 

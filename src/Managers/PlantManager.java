@@ -1,33 +1,56 @@
 package Managers;
 
-import Generators.PlantGenerator;
+import Factories.PlantFactory;
 import LivingThings.Plant;
+import LivingThings.State;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class PlantManager {
 
-    ArrayList<Plant> plantList = new ArrayList<>();
-
-    PlantGenerator plantGenerator = PlantGenerator.getInstance();
     public static int totalPlantsExisted = 0;
+
+    ArrayList<Plant> plantList = State.plantList;
+
+    PlantFactory plantFactory = PlantFactory.getInstance();
+
     private int timeBeforePlantGeneration = 0;
-    private int numOfPlantsToGenerate = 20;
+    private int numOfPlantsToGenerate = 100;
 
     private void growNewPlants(int num) {
         for (int i = 0; i < num; i++) {
-            plantList.add(plantGenerator.generatePlant());
+            plantList.add(plantFactory.generatePlant());
         }
     }
 
     //private void removeDeadPlants();
 
     private void updatePlants(Graphics g) {
-        for(Plant plant: plantList) {
-            plant.update();
-            plant.draw(g);
+//        for(Plant plant: plantList) {
+//            plant.update();
+//            plant.draw(g);
+//        }
+        int numOfPlants = plantList.size();
+        int i = 0;
+
+        while (i < numOfPlants) {
+
+            //removes dead plants
+            if (plantList.get(i).isDead()) {
+                plantList.remove(i);
+                numOfPlants--;
+                continue;
+            }
+
+            // draws Plants
+            plantList.get(i).update();
+            plantList.get(i).draw(g);
+            i++;
         }
+
+
+
     }
 
 
@@ -38,8 +61,6 @@ public class PlantManager {
             growNewPlants(numOfPlantsToGenerate);
             timeBeforePlantGeneration = 600;
         }
-
-        //removeDeadPlants
 
         updatePlants(g);
     }

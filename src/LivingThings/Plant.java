@@ -8,14 +8,14 @@ import java.awt.*;
 import java.util.Random;
 
 public class Plant extends LivingThing {
-    public static int maxSize = 10;
-    private int timeBeforeGrow = 100;
+    public static int maxSize = 20;
+    private int timeBeforeGrow = 400;
 
 
     public Plant() {
         Random rand = new Random();
         this.ID = generatePlantID();
-        this.size = rand.nextInt(1,5);
+        this.size = rand.nextInt(5,10);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.GREEN;
         this.speed = 0;
@@ -32,19 +32,19 @@ public class Plant extends LivingThing {
 
             if (this.timeBeforeGrow <= 0) {
                 GrowBy(1);
-                this.timeBeforeGrow = 100;
+                this.timeBeforeGrow = 400;
             }
 
         }
     }
 
-    public void draw(Graphics g) {
-        shape.draw(g);
-    }
+
 
     private String generatePlantID() {
         PlantManager.totalPlantsExisted++;
 
         return "PLANT" + PlantManager.totalPlantsExisted;
     }
+
+
 }
