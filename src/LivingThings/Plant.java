@@ -16,7 +16,7 @@ public class Plant extends LivingThing {
         Random rand = new Random();
         this.ID = generatePlantID();
         this.size = rand.nextInt(5,10);
-        this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
+        this.center = new Point(rand.nextInt(50, Board.B_WIDTH), rand.nextInt(50,Board.B_HEIGHT));
         this.color = Color.GREEN;
         this.speed = 0;
         this.shape = new Circle(size,center,color);

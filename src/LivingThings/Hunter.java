@@ -8,6 +8,6 @@ public interface Hunter {
 
     void eat(LivingThing livingThing);
 
-    void checkCollision(Plant plant);
+    void checkCollision(LivingThing plant);
 
 }

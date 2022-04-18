@@ -1,41 +1,41 @@
 package LivingThings;
 
 
-import Factories.HerbivoreFactory;
-import Managers.HerbivoreManager;
+import Factories.CarnivoreFactory;
+import Managers.CarnivoreManager;
 import Shapes.Circle;
 import Simulator.Board;
 
 import java.awt.*;
 import java.util.Random;
 
-import static LivingThings.State.herbivoreList;
+import static LivingThings.State.carnivoreList;
 
 
-public class Herbivore extends LivingThing implements Hunter{
-    public static int maxSize = 50;
-    private Plant target = null;
+public class Carnivore extends LivingThing implements Hunter{
+    public static int maxSize = 70;
+    private LivingThing target = null;
     private int reactionTime = 4;
-    HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();
+    CarnivoreFactory carnivoreFactory = CarnivoreFactory.getInstance();
 
-    public Herbivore() {
+    public Carnivore() {
         Random rand = new Random();
-        this.ID = generateHerbivoreID();
-        this.size = rand.nextInt(7,11);
+        this.ID = generateCarnivoreID();
+        this.size = rand.nextInt(10,15);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
-        this.color = Color.PINK;
-        this.speed = 2;
+        this.color = Color.RED;
+        this.speed = 4;
         this.timeToLive = 1000;
         this.shape = new Circle(size,center,color);
     }
 
-    public Herbivore(Point center) {
+    public Carnivore(Point center) {
         Random rand = new Random();
-        this.ID = generateHerbivoreID();
+        this.ID = generateCarnivoreID();
         this.size = rand.nextInt(5,10);
         this.center = center;
-        this.color = Color.PINK;
-        this.speed = 2;
+        this.color = Color.RED;
+        this.speed = 4;
         this.timeToLive = 1000;
         this.shape = new Circle(size,center,color);
     }
@@ -71,10 +71,10 @@ public class Herbivore extends LivingThing implements Hunter{
         return false;
     }
 
-    public String generateHerbivoreID() {
-        HerbivoreManager.totalHerbivoreExisted++;
+    public String generateCarnivoreID() {
+        CarnivoreManager.totalCarnivoreExisted++;
 
-        return "HERBIVORE" + HerbivoreManager.totalHerbivoreExisted++;
+        return "Carnivore" + CarnivoreManager.totalCarnivoreExisted++;
     }
 
 
@@ -82,22 +82,21 @@ public class Herbivore extends LivingThing implements Hunter{
     public void chooseTarget() {
 
 
-            int min = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
 
 
-            for (Plant plant: State.plantList) {
+        for (Herbivore herbivore: State.herbivoreList) {
 
-                if (this.size >= plant.size) {
-                    int distance = calculateDistance(center,plant);
+            if (this.size >= herbivore.size) {
+                int distance = calculateDistance(center,herbivore);
 
-                    if (distance < min) {
-                        min = distance;
-                        target = plant;
-                    }
+                if (distance < min) {
+                    min = distance;
+                    target = herbivore;
                 }
-
-
             }
+
+        }
 
 
     }
@@ -109,6 +108,8 @@ public class Herbivore extends LivingThing implements Hunter{
         if (reactionTime <= 0) {
             // chase
 
+
+
             if (target != null && target.isAlive) {
                 double angle = getAngleFromTarget(center, target.center);
 
@@ -116,12 +117,12 @@ public class Herbivore extends LivingThing implements Hunter{
                 if ((angle >= 0 && angle <= 30) || (angle > 330 && angle <= 360)) {
                     moveBy(1,0);
                 }
-                // Move Left Up
+                // Move Right Up
                 else if ((angle > 30 && angle <= 60)) {
                     moveBy(1,1);
                 }
                 // Move Up
-                 else if ((angle > 60 && angle <= 120)) {
+                else if ((angle > 60 && angle <= 120)) {
                     moveBy(0,1);
                 }
 
@@ -163,20 +164,20 @@ public class Herbivore extends LivingThing implements Hunter{
     }
 
     @Override
-    public void eat(LivingThing plant) {
+    public void eat(LivingThing livingThing) {
 
-        if (this.size >= plant.size) {
+        if (this.size >= livingThing.size) {
             timeToLive = 4000;
             // kill the plant
-            for (Plant p: State.plantList) {
-                if (p.ID.equals(plant.ID)) {
-                    p.Die();
+            for (Herbivore h: State.herbivoreList) {
+                if (h.ID.equals(livingThing.ID)) {
+                    h.Die();
                     break;
                 }
             }
 
-            // increase Herbivore Size
-            GrowBy(plant.size);
+            // increase Carnivore Size
+            GrowBy(livingThing.size);
             target = null;
             // check if animal is of maxSize
             if (isMaxSize()) {
@@ -196,21 +197,21 @@ public class Herbivore extends LivingThing implements Hunter{
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
             Point coordinates = new Point(center.x + rand.nextInt(-10,30),center.y + rand.nextInt(-5,15));
-            herbivoreList.add(herbivoreFactory.generateHerbivore(coordinates));
+            carnivoreList.add(carnivoreFactory.generateCarnivore(coordinates));
         }
     }
 
     @Override
-    public void checkCollision(LivingThing plant) {
+    public void checkCollision(LivingThing livingThing) {
 
         if (target != null && target.isAlive) {
-            int distance = calculateDistance(center,plant);
+            int distance = calculateDistance(center,livingThing);
 
-            int plantRadius = plant.size / 2;
-            int herbivoreRadius = size / 2;
+            int LivingThingRadius = livingThing.size / 2;
+            int CarnivoreRadius = size / 2;
 
-            if ((herbivoreRadius + plantRadius) >= distance) {
-                eat(plant);
+            if ((CarnivoreRadius + LivingThingRadius) >= distance) {
+                eat(livingThing);
             }
         }
 

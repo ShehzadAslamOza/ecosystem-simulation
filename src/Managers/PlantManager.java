@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class PlantManager {
 
     public static int totalPlantsExisted = 0;
-
     ArrayList<Plant> plantList = State.plantList;
+
 
     PlantFactory plantFactory = PlantFactory.getInstance();
 

@@ -38,5 +38,22 @@ public abstract class LivingThing {
         shape.draw(g);
     }
 
+    protected int calculateDistance(Point currentPos, LivingThing plant) {
+
+        return (int) (Math.sqrt(Math.pow((currentPos.x - plant.center.x), 2) + Math.pow((currentPos.y - plant.center.y), 2)));
+
+    }
+
+    protected float getAngleFromTarget(Point origin,Point target) {
+        float angle = (float) Math.toDegrees(Math.atan2(target.y - origin.y, target.x - origin.x));
+
+        if(angle < 0){
+            angle += 360;
+        }
+
+        return angle;
+    }
+
+
     // protected generateOffSprings
 }

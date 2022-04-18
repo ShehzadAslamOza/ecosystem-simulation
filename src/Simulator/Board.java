@@ -1,5 +1,6 @@
 package Simulator;
 
+import Managers.CarnivoreManager;
 import Managers.HerbivoreManager;
 import Managers.PlantManager;
 
@@ -29,6 +30,7 @@ public class Board extends JPanel implements ActionListener {
 
     PlantManager plantManager = new PlantManager();
     HerbivoreManager herbivoreManager = new HerbivoreManager();
+    CarnivoreManager carnivoreManager = new CarnivoreManager();
 
     public Board() {
 
@@ -61,6 +63,7 @@ public class Board extends JPanel implements ActionListener {
         Toolkit.getDefaultToolkit().sync();
         plantManager.updatePlantManager(g);
         herbivoreManager.updateHerbivoreManager(g);
+        carnivoreManager.updateCarnivoreManager(g);
 
     }
 
