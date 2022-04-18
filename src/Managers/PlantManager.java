@@ -16,7 +16,7 @@ public class PlantManager {
     PlantFactory plantFactory = PlantFactory.getInstance();
 
     private int timeBeforePlantGeneration = 0;
-    private int numOfPlantsToGenerate = 100;
+    private int numOfPlantsToGenerate = 200;
 
     private void growNewPlants(int num) {
         for (int i = 0; i < num; i++) {
@@ -59,7 +59,7 @@ public class PlantManager {
         timeBeforePlantGeneration--;
         if (timeBeforePlantGeneration <= 0) {
             growNewPlants(numOfPlantsToGenerate);
-            timeBeforePlantGeneration = 600;
+            timeBeforePlantGeneration = 400;
         }
 
         updatePlants(g);

@@ -9,7 +9,6 @@ public class Game extends JFrame {
         
         initUI();
     }
-    
     private void initUI() {
 
         add(new Board());

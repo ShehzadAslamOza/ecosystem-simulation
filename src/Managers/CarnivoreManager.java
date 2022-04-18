@@ -2,7 +2,6 @@ package Managers;
 
 import Factories.CarnivoreFactory;
 import LivingThings.Carnivore;
-import LivingThings.Herbivore;
 import LivingThings.State;
 
 import java.awt.*;
@@ -22,16 +21,16 @@ public class CarnivoreManager {
         }
     }
 
-    private void updateHerbivores(Graphics g) {
-        int numOfHerbivore = carnivoreList.size();
+    private void updateCarnivore(Graphics g) {
+        int numOfCarnivore = carnivoreList.size();
         int i = 0;
 
-        while (i < numOfHerbivore) {
+        while (i < numOfCarnivore) {
 
             //removes dead herbovore
             if (carnivoreList.get(i).isDead()) {
                 carnivoreList.remove(i);
-                numOfHerbivore--;
+                numOfCarnivore--;
                 continue;
             }
 
@@ -47,7 +46,7 @@ public class CarnivoreManager {
             spawnCarnivore(IntialCarnivores);
         }
 
-        updateHerbivores(g);
+        updateCarnivore(g);
     }
 
 }

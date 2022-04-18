@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class HerbivoreManager {
 
     public static int totalHerbivoreExisted = 0;
-    private int InitialHerbivores = 30;
+    private int InitialHerbivores = 50;
 
     ArrayList<Herbivore> herbivoreList = State.herbivoreList;
     HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();

@@ -9,13 +9,14 @@ import Simulator.Board;
 import java.awt.*;
 import java.util.Random;
 
+import static LivingThings.State.cannibalList;
 import static LivingThings.State.carnivoreList;
 
 
 public class Carnivore extends LivingThing implements Hunter{
-    public static int maxSize = 70;
-    private LivingThing target = null;
-    private int reactionTime = 4;
+    public static int maxSize = 60;
+    protected LivingThing target = null;
+    protected int reactionTime = 6;
     CarnivoreFactory carnivoreFactory = CarnivoreFactory.getInstance();
 
     public Carnivore() {
@@ -24,7 +25,7 @@ public class Carnivore extends LivingThing implements Hunter{
         this.size = rand.nextInt(10,15);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.RED;
-        this.speed = 4;
+        this.speed = 3;
         this.timeToLive = 1000;
         this.shape = new Circle(size,center,color);
     }
@@ -35,7 +36,7 @@ public class Carnivore extends LivingThing implements Hunter{
         this.size = rand.nextInt(5,10);
         this.center = center;
         this.color = Color.RED;
-        this.speed = 4;
+        this.speed = 3;
         this.timeToLive = 1000;
         this.shape = new Circle(size,center,color);
     }
@@ -64,11 +65,7 @@ public class Carnivore extends LivingThing implements Hunter{
     }
 
     public boolean isMaxSize() {
-        if (size >= maxSize) {
-            return true;
-        }
-
-        return false;
+        return size >= maxSize;
     }
 
     public String generateCarnivoreID() {
@@ -98,6 +95,20 @@ public class Carnivore extends LivingThing implements Hunter{
 
         }
 
+        for (Cannibal cannibal: cannibalList) {
+
+            if (this.size >= cannibal.size) {
+                int distance = calculateDistance(center,cannibal);
+
+                if (distance < min) {
+                    min = distance;
+                    target = cannibal;
+                }
+            }
+
+        }
+
+
 
     }
 
@@ -111,6 +122,11 @@ public class Carnivore extends LivingThing implements Hunter{
 
 
             if (target != null && target.isAlive) {
+
+                if (target.size > size) {
+                    chooseTarget();
+                }
+
                 double angle = getAngleFromTarget(center, target.center);
 
                 // Move Right
@@ -169,10 +185,19 @@ public class Carnivore extends LivingThing implements Hunter{
         if (this.size >= livingThing.size) {
             timeToLive = 4000;
             // kill the plant
-            for (Herbivore h: State.herbivoreList) {
-                if (h.ID.equals(livingThing.ID)) {
-                    h.Die();
-                    break;
+            if (livingThing instanceof Herbivore) {
+                for (Herbivore h: State.herbivoreList) {
+                    if (h.ID.equals(livingThing.ID)) {
+                        h.Die();
+                        break;
+                    }
+                }
+            } else if (livingThing instanceof Cannibal) {
+                for (Cannibal h: cannibalList) {
+                    if (h.ID.equals(livingThing.ID)) {
+                        h.Die();
+                        break;
+                    }
                 }
             }
 
@@ -187,10 +212,6 @@ public class Carnivore extends LivingThing implements Hunter{
         } else {
             chooseTarget();
         }
-
-
-
-
     }
 
     public void generateOffSprings(int num) {

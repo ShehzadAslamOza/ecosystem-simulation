@@ -13,9 +13,9 @@ import static LivingThings.State.herbivoreList;
 
 
 public class Herbivore extends LivingThing implements Hunter{
-    public static int maxSize = 50;
+    public static int maxSize = 40;
     private Plant target = null;
-    private int reactionTime = 4;
+    private int reactionTime = 6;
     HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();
 
     public Herbivore() {
@@ -109,8 +109,19 @@ public class Herbivore extends LivingThing implements Hunter{
         if (reactionTime <= 0) {
             // chase
 
+
+
             if (target != null && target.isAlive) {
+
+                if (target.size > size) {
+                    chooseTarget();
+                }
+
+
                 double angle = getAngleFromTarget(center, target.center);
+
+
+
 
                 // Move Right
                 if ((angle >= 0 && angle <= 30) || (angle > 330 && angle <= 360)) {

@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Plant extends LivingThing {
     public static int maxSize = 20;
-    private int timeBeforeGrow = 400;
+    private int timeBeforeGrow = 800;
 
 
     public Plant() {
