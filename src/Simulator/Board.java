@@ -1,5 +1,6 @@
 package Simulator;
 
+import LivingThings.State;
 import Managers.CannibalManager;
 import Managers.CarnivoreManager;
 import Managers.HerbivoreManager;
@@ -10,13 +11,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class Board extends JPanel implements ActionListener {
+public class Board extends JPanel implements ActionListener, MouseListener {
 
 //    public static final int B_WIDTH = 350;
 //    public static final int B_HEIGHT = 350;
@@ -29,6 +27,7 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private int x, y;
 
+    // Mana
     PlantManager plantManager = new PlantManager();
     HerbivoreManager herbivoreManager = new HerbivoreManager();
     CarnivoreManager carnivoreManager = new CarnivoreManager();
@@ -51,6 +50,7 @@ public class Board extends JPanel implements ActionListener {
         
         timer = new Timer(DELAY, this);
         timer.start();
+        this.addMouseListener( this );
     }
 
     @Override
@@ -84,4 +84,36 @@ public class Board extends JPanel implements ActionListener {
 
         repaint();
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(SwingUtilities.isRightMouseButton(e))
+        {
+
+            State.Icon = !State.Icon;
+            System.out.println("right pressed");
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+
 }

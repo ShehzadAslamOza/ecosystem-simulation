@@ -4,13 +4,27 @@ import LivingThings.*;
 
 import java.awt.*;
 
+/**
+ * LivingThingFactory generates new Living THings
+ */
+
 public class LivingThingFactory {
+
+    // Only one instance of factory as singleton pattern
     private static LivingThingFactory instance = null;
 
+    /**
+     * Factory Constructor
+     */
     private LivingThingFactory() {
 
     }
 
+
+    /**
+     * Returns the instance of the factory
+     * @return
+     */
     public static LivingThingFactory getInstance() {
 
         if (instance == null) {
@@ -21,6 +35,11 @@ public class LivingThingFactory {
 
     }
 
+    /**
+     * Returns the required Living Thing
+     * @param livingThing
+     * @return
+     */
     public LivingThing getLivingThing(String livingThing) {
         return switch (livingThing) {
             case "PLANT" -> new Plant();
@@ -31,6 +50,12 @@ public class LivingThingFactory {
         };
     }
 
+    /**
+     * Returns the required Livingthind and sets is center
+     * @param livingThing
+     * @param center
+     * @return
+     */
     public LivingThing getLivingThing(String livingThing, Point center) {
         return switch (livingThing) {
             case "PLANT" -> new Plant();

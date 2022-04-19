@@ -1,7 +1,6 @@
 package LivingThings;
 
 
-import Factories.HerbivoreFactory;
 import Managers.HerbivoreManager;
 import Shapes.Circle;
 import Simulator.Board;
@@ -11,50 +10,48 @@ import java.util.Random;
 
 import static LivingThings.State.herbivoreList;
 
-
+/**
+ * Herbovore Class that extends Animal
+ */
 public class Herbivore extends Animal {
     public static int maxSize = State.HERBIVORE_MAX_SIZE;
 
 
-    HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();
-
+    /**
+     * Herbovore Constructor
+     */
     public Herbivore() {
         Random rand = new Random();
         this.ID = generateID();
         this.size = rand.nextInt(20,30);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
-        this.color = Color.PINK;
-        this.speed = 2;
+        this.color = Color.GRAY;
+        this.speed = 1;
         this.timeToLive = State.HERBIVORE_TIME_TO_LIVE;
         this.image = ImageReader("assests/deer.png");
         this.shape = new Circle(size,center,color,image);
     }
 
+    /**
+     * Herbovore Constructor
+     */
     public Herbivore(Point center) {
         Random rand = new Random();
         this.ID = generateID();
         this.size = rand.nextInt(20,30);
         this.center = center;
-        this.color = Color.PINK;
-        this.speed = 2;
+        this.color = Color.GRAY;
+        this.speed = 1;
         this.timeToLive = State.HERBIVORE_TIME_TO_LIVE;
         this.image = ImageReader("assests/deer.png");
         this.shape = new Circle(size,center,color,image);
     }
 
 
-
-
-
-
-    public boolean isMaxSize() {
-        if (size >= maxSize) {
-            return true;
-        }
-
-        return false;
-    }
-
+    /**
+     * Gerneates unique id for herbivore
+     * @return
+     */
     public String generateID() {
         HerbivoreManager.totalHerbivoreExisted++;
 
@@ -62,7 +59,9 @@ public class Herbivore extends Animal {
     }
 
 
-    @Override
+    /**
+     * Herbivore chooses its closest plant
+     */
     public void chooseTarget() {
 
 
@@ -87,8 +86,9 @@ public class Herbivore extends Animal {
     }
 
 
-
-    @Override
+    /**
+     * Herbovore runs towards the plant
+     */
     public void chaseTarget() {
         if (reactionTime <= 0) {
             // chase
@@ -97,14 +97,13 @@ public class Herbivore extends Animal {
 
             if (target != null && target.isAlive) {
 
+                // Chases only if the size of the target it smaller or equal to itself
                 if (target.size > size) {
                     chooseTarget();
                 }
 
-
+                // angle between the prey and predator
                 double angle = getAngleFromTarget(center, target.center);
-
-
 
 
                 // Move Right
@@ -157,7 +156,10 @@ public class Herbivore extends Animal {
         }
     }
 
-    @Override
+    /**
+     * Herbovore wats its prey
+     * @param plant
+     */
     public void eat(LivingThing plant) {
 
         if (this.size >= plant.size) {
@@ -191,6 +193,10 @@ public class Herbivore extends Animal {
 
     }
 
+    /**
+     * Generates offprings
+     * @param num
+     */
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {

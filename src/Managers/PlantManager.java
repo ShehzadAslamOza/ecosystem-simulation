@@ -1,13 +1,14 @@
 package Managers;
 
-import Factories.PlantFactory;
 import LivingThings.LivingThing;
-import LivingThings.Plant;
 import LivingThings.State;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Manages the plant
+ */
 public class PlantManager extends LivingThingManager{
 
     public static int totalPlantsExisted = 0;
@@ -16,16 +17,20 @@ public class PlantManager extends LivingThingManager{
     ArrayList<LivingThing> plantList = State.plantList;
 
 
-
-
-
+    /**
+     * Spawns plants randomly on the screen
+     * @param num
+     */
     private void spawnPlants(int num) {
         for (int i = 0; i < num; i++) {
             plantList.add(livingThingFactory.getLivingThing("PLANT"));
         }
     }
 
-
+    /**
+     * updates the manager that update the plants
+     * @param g
+     */
     public void updateManager(Graphics g) {
 
         timeBeforePlantGeneration--;

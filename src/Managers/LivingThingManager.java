@@ -7,10 +7,16 @@ import LivingThings.LivingThing;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Abstract class that manages living things
+ */
 public abstract class LivingThingManager {
 
     protected LivingThingFactory livingThingFactory = LivingThingFactory.getInstance();
 
+    /**
+        Updates all living things stored
+     */
     protected void updateLivingThing(Graphics g, ArrayList<LivingThing> livingThingList) {
         int livingThingCount = livingThingList.size();
         int i = 0;
@@ -31,5 +37,9 @@ public abstract class LivingThingManager {
         }
     }
 
+    /**
+     * updates the manager that updates the living things
+     * @param g
+     */
     public abstract void updateManager(Graphics g);
 }

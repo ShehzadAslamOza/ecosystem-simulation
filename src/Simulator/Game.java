@@ -19,6 +19,7 @@ public class Game extends JFrame {
         setTitle("Ecosystem");
         setLocationRelativeTo(null);        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public static void main(String[] args) {

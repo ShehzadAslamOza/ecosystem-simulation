@@ -1,7 +1,6 @@
 package LivingThings;
 
 
-import Factories.CarnivoreFactory;
 import Managers.CarnivoreManager;
 import Shapes.Circle;
 import Simulator.Board;
@@ -12,46 +11,47 @@ import java.util.Random;
 import static LivingThings.State.cannibalList;
 import static LivingThings.State.carnivoreList;
 
-
+/**
+ * Carnivore class that extends Animal
+ */
 public class Carnivore extends Animal {
     public static int maxSize = State.CARNIVORE_MAX_SIZE;
 
 
-    CarnivoreFactory carnivoreFactory = CarnivoreFactory.getInstance();
-
+    /**
+     * Carnivore Constructor
+     */
     public Carnivore() {
         Random rand = new Random();
         this.ID = generateID();
         this.size = rand.nextInt(20,30);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
-        this.color = Color.RED;
-        this.speed = 3;
+        this.color = Color.CYAN;
+        this.speed = 2;
         this.timeToLive = State.CARNIVORE_TIME_TO_LIVE;
         this.image = ImageReader("assests/tiger.png");
         this.shape = new Circle(size,center,color,image);
     }
 
+    /**
+     * Carnivore Constructor
+     */
     public Carnivore(Point center) {
         Random rand = new Random();
         this.ID = generateID();
         this.size = rand.nextInt(20,30);
         this.center = center;
-        this.color = Color.RED;
-        this.speed = 3;
+        this.color = Color.CYAN;
+        this.speed = 2;
         this.timeToLive = State.CARNIVORE_TIME_TO_LIVE;
         this.image = ImageReader("assests/tiger.png");
         this.shape = new Circle(size,center,color,image);
     }
 
-
-
-
-
-
-    public boolean isMaxSize() {
-        return size >= maxSize;
-    }
-
+    /**
+     * Generates unique id for carnivore
+     * @return
+     */
     public String generateID() {
         CarnivoreManager.totalCarnivoreExisted++;
 
@@ -59,6 +59,9 @@ public class Carnivore extends Animal {
     }
 
 
+    /**
+     * Chooses ther nearest prey
+     */
     @Override
     public void chooseTarget() {
 
@@ -79,6 +82,7 @@ public class Carnivore extends Animal {
 
         }
 
+//        //comment out
 //        for (LivingThing cannibal: cannibalList) {
 //
 //            if (this.size >= cannibal.size) {
@@ -97,7 +101,9 @@ public class Carnivore extends Animal {
     }
 
 
-
+    /**
+     * Runs after its prey
+     */
     @Override
     public void chaseTarget() {
         if (reactionTime <= 0) {
@@ -151,7 +157,7 @@ public class Carnivore extends Animal {
                     moveBy(0,-1);
                 }
 
-                reactionTime = 4;
+                reactionTime = 2;
             } else {
                 chooseTarget();
             }
@@ -163,7 +169,10 @@ public class Carnivore extends Animal {
         }
     }
 
-    @Override
+    /**
+     * Eats its prey
+     * @param livingThing
+     */
     public void eat(LivingThing livingThing) {
 
         if (this.size >= livingThing.size) {
@@ -202,6 +211,10 @@ public class Carnivore extends Animal {
         }
     }
 
+    /**
+     * genreates offspring
+     * @param num
+     */
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
@@ -210,21 +223,5 @@ public class Carnivore extends Animal {
         }
     }
 
-    @Override
-    public void checkCollision(LivingThing livingThing) {
 
-        if (target != null && target.isAlive) {
-            int distance = calculateDistance(center,livingThing);
-
-            int LivingThingRadius = livingThing.size / 2;
-            int CarnivoreRadius = size / 2;
-
-            if ((CarnivoreRadius + LivingThingRadius) >= distance) {
-                eat(livingThing);
-            }
-        }
-
-
-
-    }
 }

@@ -2,6 +2,10 @@ package LivingThings;
 
 import java.util.ArrayList;
 
+/**
+ * Stores the variable that need to be changed to get different results
+ * for the ecosystem
+ */
 public class State {
 
     public static boolean Icon = true;
@@ -31,6 +35,7 @@ public class State {
     public static int INITIAL_HERBIVORE = 20;
     public static int HERBIVORE_TIME_TO_LIVE = 1500;
 
+    // Stores different types of living things
     public static ArrayList<LivingThing> plantList = new ArrayList<>();
     public static ArrayList<LivingThing> herbivoreList = new ArrayList<>();
     public static ArrayList<LivingThing> carnivoreList = new ArrayList<>();

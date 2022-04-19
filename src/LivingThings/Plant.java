@@ -11,19 +11,21 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Plant Class which extends LivingThing
+ */
+
 public class Plant extends LivingThing {
-    public static int maxSize = State.PLANT_MAX_SIZE;
-    private int timeBeforeGrow = State.TIME_BEFORE_GROW;
+    public static int maxSize = State.PLANT_MAX_SIZE;       // Maximum Size of the plant
+    private int timeBeforeGrow = State.TIME_BEFORE_GROW;    // Time after which the plants grow themselves
 
 
-
-
+    /**
+     * Plant Constructor
+     */
     public Plant() {
-
-
-
         Random rand = new Random();
-        this.ID = generatePlantID();
+        this.ID = generateID();
         this.size = rand.nextInt(15,20);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.GREEN;
@@ -32,24 +34,20 @@ public class Plant extends LivingThing {
         this.shape = new Circle(size,center,color,image);
     }
 
-    public BufferedImage ImageReader(String path) {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        return image;
-    }
 
+    /**
+     * Updates the plant after each iteration
+     */
     public void update() {
 
+        // Plants don't grow more than a specifies size
         if (this.size != maxSize) {
 
             // Updating Time Before Grow
             this.timeBeforeGrow--;
 
+            // Grows the plants after an interval
             if (this.timeBeforeGrow <= 0) {
                 GrowBy(1);
                 this.timeBeforeGrow = 400;
@@ -59,8 +57,11 @@ public class Plant extends LivingThing {
     }
 
 
-
-    private String generatePlantID() {
+    /**
+     * Generates unique id for plant
+     * @return
+     */
+    public String generateID() {
         PlantManager.totalPlantsExisted++;
 
         return "PLANT" + PlantManager.totalPlantsExisted;
