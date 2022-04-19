@@ -16,13 +16,12 @@ public class PlantManager extends LivingThingManager{
     ArrayList<LivingThing> plantList = State.plantList;
 
 
-    PlantFactory plantFactory = PlantFactory.getInstance();
 
 
 
     private void spawnPlants(int num) {
         for (int i = 0; i < num; i++) {
-            plantList.add(plantFactory.generatePlant());
+            plantList.add(livingThingFactory.getLivingThing("PLANT"));
         }
     }
 

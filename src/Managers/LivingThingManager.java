@@ -1,5 +1,6 @@
 package Managers;
 
+import Factories.LivingThingFactory;
 import LivingThings.Carnivore;
 import LivingThings.LivingThing;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public abstract class LivingThingManager {
 
-
+    protected LivingThingFactory livingThingFactory = LivingThingFactory.getInstance();
 
     protected void updateLivingThing(Graphics g, ArrayList<LivingThing> livingThingList) {
         int livingThingCount = livingThingList.size();

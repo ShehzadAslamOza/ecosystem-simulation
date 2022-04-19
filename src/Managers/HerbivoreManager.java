@@ -14,11 +14,11 @@ public class HerbivoreManager extends LivingThingManager{
     private int InitialHerbivores = State.INITIAL_HERBIVORE;
 
     ArrayList<LivingThing> herbivoreList = State.herbivoreList;
-    HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();
+
 
     private void spawnHerbivores(int num) {
         for (int i = 0; i < num; i++) {
-            herbivoreList.add(herbivoreFactory.generateHerbivore());
+            herbivoreList.add(livingThingFactory.getLivingThing("HERBIVORE"));
         }
     }
 

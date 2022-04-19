@@ -79,18 +79,18 @@ public class Carnivore extends Animal {
 
         }
 
-        for (LivingThing cannibal: cannibalList) {
-
-            if (this.size >= cannibal.size) {
-                int distance = calculateDistance(center,cannibal);
-
-                if (distance < min) {
-                    min = distance;
-                    target = cannibal;
-                }
-            }
-
-        }
+//        for (LivingThing cannibal: cannibalList) {
+//
+//            if (this.size >= cannibal.size) {
+//                int distance = calculateDistance(center,cannibal);
+//
+//                if (distance < min) {
+//                    min = distance;
+//                    target = cannibal;
+//                }
+//            }
+//
+//        }
 
 
 
@@ -205,8 +205,8 @@ public class Carnivore extends Animal {
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
-            Point coordinates = new Point(center.x + rand.nextInt(-30,30),center.y + rand.nextInt(-5,15));
-            carnivoreList.add(carnivoreFactory.generateCarnivore(coordinates));
+            Point coordinates = new Point(center.x + rand.nextInt(-50,50),center.y + rand.nextInt(-50,50));
+            carnivoreList.add(livingThingFactory.getLivingThing("CARNIVORE",coordinates));
         }
     }
 

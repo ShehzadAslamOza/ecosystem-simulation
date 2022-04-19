@@ -1,5 +1,6 @@
 package LivingThings;
 
+import Factories.LivingThingFactory;
 import Shapes.Circle;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,8 @@ public abstract class LivingThing {
     protected int speed;
     protected int timeToLive;
     protected Circle shape;
+
+    protected LivingThingFactory livingThingFactory = LivingThingFactory.getInstance();
 
     protected void Die() {
         this.isAlive = false;

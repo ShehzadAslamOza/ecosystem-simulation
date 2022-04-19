@@ -16,7 +16,7 @@ import static LivingThings.State.carnivoreList;
 public class Cannibal extends Carnivore{
 
     private static final int maxSize = State.CANNIBAL_MAX_SIZE;
-    private int cannibilismBuffer = 200;
+    private int cannibilismBuffer = 0;
     CannibalFactory cannibalFactory = CannibalFactory.getInstance();
 
 
@@ -92,8 +92,8 @@ public class Cannibal extends Carnivore{
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
-            Point coordinates = new Point(center.x + rand.nextInt(-30,30),center.y + rand.nextInt(-5,15));
-            cannibalList.add(cannibalFactory.generateCarnivore(coordinates));
+            Point coordinates = new Point(center.x + rand.nextInt(-75,75),center.y + rand.nextInt(-75,75));
+            cannibalList.add(livingThingFactory.getLivingThing("CANNIBAL",coordinates));
         }
     }
 

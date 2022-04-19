@@ -194,8 +194,8 @@ public class Herbivore extends Animal {
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
-            Point coordinates = new Point(center.x + rand.nextInt(-30,30),center.y + rand.nextInt(-5,15));
-            herbivoreList.add(herbivoreFactory.generateHerbivore(coordinates));
+            Point coordinates = new Point(center.x + rand.nextInt(-50,50),center.y + rand.nextInt(-50,50));
+            herbivoreList.add(livingThingFactory.getLivingThing("HERBIVORE",coordinates));
         }
     }
 

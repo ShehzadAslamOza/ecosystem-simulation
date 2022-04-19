@@ -16,33 +16,14 @@ public class CannibalManager extends LivingThingManager{
     private int InitialCannibals = State.INITIAL_CANNIBAL;
 
     ArrayList<LivingThing> cannibalList = State.cannibalList;
-    CannibalFactory cannibalFactory = CannibalFactory.getInstance();
+
 
     private void spawnCannibal(int num) {
         for (int i = 0; i < num; i++) {
-            cannibalList.add(cannibalFactory.generateCarnivore());
+            cannibalList.add(livingThingFactory.getLivingThing("CANNIBAL"));
         }
     }
 
-    private void updateCannibal(Graphics g) {
-        int numOfCannibal = cannibalList.size();
-        int i = 0;
-
-        while (i < numOfCannibal) {
-
-            //removes dead herbovore
-            if (cannibalList.get(i).isDead()) {
-                cannibalList.remove(i);
-                numOfCannibal--;
-                continue;
-            }
-
-            // draws Plants
-            cannibalList.get(i).update();
-            cannibalList.get(i).draw(g);
-            i++;
-        }
-    }
 
     public void updateManager(Graphics g) {
         if (totalCannibalExisted == 0) {
