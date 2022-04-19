@@ -4,24 +4,44 @@ import Managers.PlantManager;
 import Shapes.Circle;
 import Simulator.Board;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class Plant extends LivingThing {
-    public static int maxSize = 20;
-    private int timeBeforeGrow = 800;
+    public static int maxSize = State.PLANT_MAX_SIZE;
+    private int timeBeforeGrow = State.TIME_BEFORE_GROW;
+
+
 
 
     public Plant() {
+
+
+
         Random rand = new Random();
         this.ID = generatePlantID();
-        this.size = rand.nextInt(5,10);
-        this.center = new Point(rand.nextInt(50, Board.B_WIDTH), rand.nextInt(50,Board.B_HEIGHT));
+        this.size = rand.nextInt(15,20);
+        this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.GREEN;
         this.speed = 0;
-        this.shape = new Circle(size,center,color);
+        this.image = ImageReader("assests/plant.png");
+        this.shape = new Circle(size,center,color,image);
     }
 
+    public BufferedImage ImageReader(String path) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+    }
 
     public void update() {
 

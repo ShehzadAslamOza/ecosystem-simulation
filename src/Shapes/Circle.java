@@ -1,8 +1,9 @@
 package Shapes;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import LivingThings.State;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * This is a Circle Shape
@@ -12,12 +13,14 @@ public class Circle
     protected int size;
     protected Point center;
     protected Color color;
+    protected Image image;
 
 
-    public Circle(int iSize, Point location, Color C) {
+    public Circle(int iSize, Point location, Color C, BufferedImage image) {
         setSize(iSize);
         setLocation(location);
         setColor(C);
+        setImage(image);
     }
     void setSize(int iSize) {
         if (iSize > 1) {
@@ -25,6 +28,10 @@ public class Circle
         } else {
             size = 1;
         }
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
     void setLocation(Point Pcenter) {
@@ -53,6 +60,13 @@ public class Circle
     public void draw(Graphics g)
     {
         g.setColor(getColor());
-        g.fillOval(getCenter().x - getSize()/2 ,getCenter().y - getSize()/2,getSize(),getSize());
+
+        if(State.Icon) {
+            g.drawImage(image,getCenter().x - getSize()/2 ,getCenter().y - getSize()/2, getSize(),getSize(), null);
+        } else {
+            g.fillOval(getCenter().x - getSize()/2 ,getCenter().y - getSize()/2,getSize(),getSize());
+        }
+
+
     }
 }

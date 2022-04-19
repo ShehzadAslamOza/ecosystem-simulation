@@ -2,12 +2,17 @@ package LivingThings;
 
 import Shapes.Circle;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public abstract class LivingThing {
     protected String ID;
     protected Point center;
     protected Color color;
+    protected BufferedImage image;
     protected boolean isAlive = true;
     protected int size;
     protected int speed;
@@ -20,7 +25,7 @@ public abstract class LivingThing {
 
     protected void GrowBy(int growBy) {
         this.size += growBy;
-        this.shape = new Circle(size,center,color);
+        this.shape = new Circle(size,center,color, image);
     }
 
     protected void moveBy(int x,int y) {
@@ -54,6 +59,18 @@ public abstract class LivingThing {
         return angle;
     }
 
+    protected BufferedImage ImageReader(String path) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+    }
+
+    public abstract void update();
 
     // protected generateOffSprings
 }

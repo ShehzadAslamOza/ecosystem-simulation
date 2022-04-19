@@ -12,56 +12,40 @@ import java.util.Random;
 import static LivingThings.State.herbivoreList;
 
 
-public class Herbivore extends LivingThing implements Hunter{
-    public static int maxSize = 40;
-    private Plant target = null;
-    private int reactionTime = 6;
+public class Herbivore extends Animal {
+    public static int maxSize = State.HERBIVORE_MAX_SIZE;
+
+
     HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();
 
     public Herbivore() {
         Random rand = new Random();
-        this.ID = generateHerbivoreID();
-        this.size = rand.nextInt(7,11);
+        this.ID = generateID();
+        this.size = rand.nextInt(20,30);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.PINK;
         this.speed = 2;
-        this.timeToLive = 1000;
-        this.shape = new Circle(size,center,color);
+        this.timeToLive = State.HERBIVORE_TIME_TO_LIVE;
+        this.image = ImageReader("assests/deer.png");
+        this.shape = new Circle(size,center,color,image);
     }
 
     public Herbivore(Point center) {
         Random rand = new Random();
-        this.ID = generateHerbivoreID();
-        this.size = rand.nextInt(5,10);
+        this.ID = generateID();
+        this.size = rand.nextInt(20,30);
         this.center = center;
         this.color = Color.PINK;
         this.speed = 2;
-        this.timeToLive = 1000;
-        this.shape = new Circle(size,center,color);
+        this.timeToLive = State.HERBIVORE_TIME_TO_LIVE;
+        this.image = ImageReader("assests/deer.png");
+        this.shape = new Circle(size,center,color,image);
     }
 
 
 
 
-    public void update() {
-        if (timeToLive == 0) {
-            Die();
-        } else {
-            timeToLive--;
-        }
 
-        if (target == null) {
-            chooseTarget();
-        } else if (target.isDead()) {
-            chooseTarget();
-        }
-
-        chaseTarget();
-
-        checkCollision(target);
-
-
-    }
 
     public boolean isMaxSize() {
         if (size >= maxSize) {
@@ -71,7 +55,7 @@ public class Herbivore extends LivingThing implements Hunter{
         return false;
     }
 
-    public String generateHerbivoreID() {
+    public String generateID() {
         HerbivoreManager.totalHerbivoreExisted++;
 
         return "HERBIVORE" + HerbivoreManager.totalHerbivoreExisted++;
@@ -85,7 +69,7 @@ public class Herbivore extends LivingThing implements Hunter{
             int min = Integer.MAX_VALUE;
 
 
-            for (Plant plant: State.plantList) {
+            for (LivingThing plant: State.plantList) {
 
                 if (this.size >= plant.size) {
                     int distance = calculateDistance(center,plant);
@@ -177,23 +161,27 @@ public class Herbivore extends LivingThing implements Hunter{
     public void eat(LivingThing plant) {
 
         if (this.size >= plant.size) {
-            timeToLive = 4000;
+            timeToLive = State.HERBIVORE_TIME_TO_LIVE;;
             // kill the plant
-            for (Plant p: State.plantList) {
+            for (LivingThing p: State.plantList) {
                 if (p.ID.equals(plant.ID)) {
                     p.Die();
                     break;
                 }
             }
 
-            // increase Herbivore Size
-            GrowBy(plant.size);
-            target = null;
+
+
             // check if animal is of maxSize
-            if (isMaxSize()) {
+            if (this.size + target.size >= maxSize) {
                 Die();
-                generateOffSprings(4);
+                generateOffSprings(8);
+            } else {
+                // increase Carnivore Size
+                GrowBy(plant.size / 3);
             }
+
+            target = null;
         } else {
             chooseTarget();
         }
@@ -206,26 +194,11 @@ public class Herbivore extends LivingThing implements Hunter{
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
-            Point coordinates = new Point(center.x + rand.nextInt(-10,30),center.y + rand.nextInt(-5,15));
+            Point coordinates = new Point(center.x + rand.nextInt(-30,30),center.y + rand.nextInt(-5,15));
             herbivoreList.add(herbivoreFactory.generateHerbivore(coordinates));
         }
     }
 
-    @Override
-    public void checkCollision(LivingThing plant) {
-
-        if (target != null && target.isAlive) {
-            int distance = calculateDistance(center,plant);
-
-            int plantRadius = plant.size / 2;
-            int herbivoreRadius = size / 2;
-
-            if ((herbivoreRadius + plantRadius) >= distance) {
-                eat(plant);
-            }
-        }
 
 
-
-    }
 }

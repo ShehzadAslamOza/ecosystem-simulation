@@ -15,54 +15,57 @@ import static LivingThings.State.carnivoreList;
 
 public class Cannibal extends Carnivore{
 
-
+    private static final int maxSize = State.CANNIBAL_MAX_SIZE;
+    private int cannibilismBuffer = 200;
     CannibalFactory cannibalFactory = CannibalFactory.getInstance();
-    private int cannibalEatTime = 300;
+
 
     public Cannibal() {
         Random rand = new Random();
-        this.ID = generateCannibalID();
-        this.size = rand.nextInt(10,15);
+        this.ID = generateID();
+        this.size = rand.nextInt(25,35);
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.BLACK;
         this.speed = 3;
-        this.timeToLive = 1000;
-        this.shape = new Circle(size,center,color);
+        this.timeToLive = State.CANNIBAL_TIME_TO_LIVE;
+        this.image = ImageReader("assests/bear.png");
+        this.shape = new Circle(size,center,color,image);
     }
 
     public Cannibal(Point center) {
         Random rand = new Random();
-        this.ID = generateCannibalID();
-        this.size = rand.nextInt(5,10);
+        this.ID = generateID();
+        this.size = rand.nextInt(20,30);
         this.center = center;
         this.color = Color.BLACK;
         this.speed = 3;
-        this.timeToLive = 1000;
-        this.shape = new Circle(size,center,color);
+        this.timeToLive = State.CANNIBAL_TIME_TO_LIVE;
+        this.image = ImageReader("assests/bear.png");
+        this.shape = new Circle(size,center,color,image);
     }
 
     @Override
     public void eat(LivingThing livingThing) {
 
         if (this.size >= livingThing.size) {
-            timeToLive = 4000;
+            timeToLive = State.CANNIBAL_TIME_TO_LIVE;
             // kill the plant
             if (livingThing instanceof Herbivore) {
-                for (Herbivore h: State.herbivoreList) {
-                    if (h.ID.equals(livingThing.ID)) {
-                        h.Die();
-                        break;
-                    }
-                }
-            } else if (livingThing instanceof Carnivore) {
-                for (Carnivore h: carnivoreList) {
+                for (LivingThing h: State.herbivoreList) {
                     if (h.ID.equals(livingThing.ID)) {
                         h.Die();
                         break;
                     }
                 }
             } else if (livingThing instanceof Cannibal) {
-                for (Cannibal h: cannibalList) {
+                for (LivingThing h: cannibalList) {
+                    if (h.ID.equals(livingThing.ID)) {
+                        h.Die();
+                        break;
+                    }
+                }
+            } else if (livingThing instanceof Carnivore) {
+                for (LivingThing h: carnivoreList) {
                     if (h.ID.equals(livingThing.ID)) {
                         h.Die();
                         break;
@@ -71,14 +74,16 @@ public class Cannibal extends Carnivore{
             }
 
 
-            // increase Carnivore Size
-            GrowBy(livingThing.size);
-            target = null;
             // check if animal is of maxSize
-            if (isMaxSize()) {
+            if (this.size + target.size >= maxSize) {
                 Die();
-                generateOffSprings(6);
+                generateOffSprings(2);
+            } else {
+                // increase Carnivore Size
+                GrowBy(livingThing.size / 3);
             }
+
+            target = null;
         } else {
             chooseTarget();
         }
@@ -87,12 +92,12 @@ public class Cannibal extends Carnivore{
     public void generateOffSprings(int num) {
         Random rand = new Random();
         for (int i = 0; i < num; i++) {
-            Point coordinates = new Point(center.x + rand.nextInt(-10,30),center.y + rand.nextInt(-5,15));
+            Point coordinates = new Point(center.x + rand.nextInt(-30,30),center.y + rand.nextInt(-5,15));
             cannibalList.add(cannibalFactory.generateCarnivore(coordinates));
         }
     }
 
-    public String generateCannibalID() {
+    public String generateID() {
         CannibalManager.totalCannibalExisted++;
 
         return "Cannibal" + CannibalManager.totalCannibalExisted++;
@@ -104,9 +109,13 @@ public class Cannibal extends Carnivore{
 
 
         int min = Integer.MAX_VALUE;
+        cannibilismBuffer--;
 
 
-        for (Herbivore herbivore: State.herbivoreList) {
+
+
+
+        for (LivingThing herbivore: State.herbivoreList) {
 
             if (this.size >= herbivore.size) {
                 int distance = calculateDistance(center,herbivore);
@@ -118,7 +127,8 @@ public class Cannibal extends Carnivore{
             }
 
         }
-        for (Carnivore carnivore: carnivoreList) {
+
+        for (LivingThing carnivore: carnivoreList) {
 
             if (this.size >= carnivore.size) {
                 int distance = calculateDistance(center,carnivore);
@@ -131,13 +141,13 @@ public class Cannibal extends Carnivore{
 
         }
 
-        if (cannibalEatTime <= 0 || target == null) {
-            for (Cannibal cannibal: cannibalList) {
+        if ((cannibilismBuffer <= 0) || target ==null) {
+            for (LivingThing cannibal: cannibalList) {
 
-                if (this.size >= cannibal.size) {
+                if (this.size >= cannibal.size && !cannibal.ID.equals(this.ID)) {
                     int distance = calculateDistance(center,cannibal);
 
-                    if (distance < min) {
+                    if (distance< min) {
                         min = distance;
                         target = cannibal;
                     }
@@ -146,9 +156,9 @@ public class Cannibal extends Carnivore{
             }
         }
 
-        cannibalEatTime--;
 
 
 
     }
+
 }

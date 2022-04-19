@@ -2,17 +2,18 @@ package Managers;
 
 import Factories.HerbivoreFactory;
 import LivingThings.Herbivore;
+import LivingThings.LivingThing;
 import LivingThings.State;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class HerbivoreManager {
+public class HerbivoreManager extends LivingThingManager{
 
     public static int totalHerbivoreExisted = 0;
-    private int InitialHerbivores = 50;
+    private int InitialHerbivores = State.INITIAL_HERBIVORE;
 
-    ArrayList<Herbivore> herbivoreList = State.herbivoreList;
+    ArrayList<LivingThing> herbivoreList = State.herbivoreList;
     HerbivoreFactory herbivoreFactory = HerbivoreFactory.getInstance();
 
     private void spawnHerbivores(int num) {
@@ -21,32 +22,13 @@ public class HerbivoreManager {
         }
     }
 
-    private void updateHerbivores(Graphics g) {
-        int numOfHerbivore = herbivoreList.size();
-        int i = 0;
 
-        while (i < numOfHerbivore) {
-
-            //removes dead herbovore
-            if (herbivoreList.get(i).isDead()) {
-                herbivoreList.remove(i);
-                numOfHerbivore--;
-                continue;
-            }
-
-            // draws Plants
-            herbivoreList.get(i).update();
-            herbivoreList.get(i).draw(g);
-            i++;
-        }
-    }
-
-    public void updateHerbivoreManager(Graphics g) {
+    public void updateManager(Graphics g) {
         if (totalHerbivoreExisted == 0) {
             spawnHerbivores(InitialHerbivores);
         }
 
-        updateHerbivores(g);
+        updateLivingThing(g, herbivoreList);
     }
 
 }

@@ -4,17 +4,18 @@ import Factories.CannibalFactory;
 import Factories.CarnivoreFactory;
 import LivingThings.Cannibal;
 import LivingThings.Carnivore;
+import LivingThings.LivingThing;
 import LivingThings.State;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CannibalManager {
+public class CannibalManager extends LivingThingManager{
 
     public static int totalCannibalExisted = 0;
-    private int InitialCannibals = 10;
+    private int InitialCannibals = State.INITIAL_CANNIBAL;
 
-    ArrayList<Cannibal> cannibalList = State.cannibalList;
+    ArrayList<LivingThing> cannibalList = State.cannibalList;
     CannibalFactory cannibalFactory = CannibalFactory.getInstance();
 
     private void spawnCannibal(int num) {
@@ -43,12 +44,12 @@ public class CannibalManager {
         }
     }
 
-    public void updateCannibalManager(Graphics g) {
+    public void updateManager(Graphics g) {
         if (totalCannibalExisted == 0) {
             spawnCannibal(InitialCannibals);
         }
 
-        updateCannibal(g);
+        updateLivingThing(g, cannibalList);
     }
 
 }

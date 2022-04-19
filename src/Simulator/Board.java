@@ -20,8 +20,8 @@ public class Board extends JPanel implements ActionListener {
 
 //    public static final int B_WIDTH = 350;
 //    public static final int B_HEIGHT = 350;
-    public static final int B_WIDTH = 800;
-    public static final int B_HEIGHT = 600;
+    public static final int B_WIDTH = 1200;
+    public static final int B_HEIGHT = 800;
     private final int INITIAL_X = -40;
     private final int INITIAL_Y = -40;
     private final int DELAY = 25;
@@ -63,10 +63,10 @@ public class Board extends JPanel implements ActionListener {
     private void Draw(Graphics g) {
 
         Toolkit.getDefaultToolkit().sync();
-        plantManager.updatePlantManager(g);
-        herbivoreManager.updateHerbivoreManager(g);
-        carnivoreManager.updateCarnivoreManager(g);
-        cannibalManager.updateCannibalManager(g);
+        plantManager.updateManager(g);
+        herbivoreManager.updateManager(g);
+        carnivoreManager.updateManager(g);
+        cannibalManager.updateManager(g);
 
     }
 
