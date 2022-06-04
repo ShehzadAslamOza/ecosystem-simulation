@@ -8,6 +8,8 @@ It simulates a basic ecosystem where Herbivores eat plants, Carnivores eat Herbi
 | <img src="assests/deer.png" alt="Bear[Cannibal]" width="70"/>  | Herbivore |
 | <img src="assests/tiger.png" alt="Bear[Cannibal]" width="70"/> |   Tiger   |
 
+[Download Ecosystem Simulator](https://github.com/ShehzadAslamOza/ecosystem-simulation/raw/main/out/artifacts/ecosystem_jar/ecosystem.jar)
+
 ---
 
 ### Conditions Followed by the Simulation
@@ -49,4 +51,4 @@ alt="IMAGE ALT TEXT HERE" width="800"/></a>
 
 ---
 
-[Download Ecosystem Simulator](https://github.com/ShehzadAslamOza/ecosystem-simulation/raw/main/out/artifacts/ecosystem_jar/ecosystem.jar){: .btn}
+[Download Ecosystem Simulator](https://github.com/ShehzadAslamOza/ecosystem-simulation/raw/main/out/artifacts/ecosystem_jar/ecosystem.jar)
