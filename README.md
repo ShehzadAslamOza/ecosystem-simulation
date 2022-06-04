@@ -49,4 +49,4 @@ alt="IMAGE ALT TEXT HERE" width="800"/></a>
 
 ---
 
-<button name="button" style="width:200px;height:50px;background-color:cyan;" onclick="https://github.com/ShehzadAslamOza/ecosystem-simulation/raw/main/out/artifacts/ecosystem_jar/ecosystem.jar">Download Ecosystem Simulator</button>
+[Download Ecosystem Simulator](https://github.com/ShehzadAslamOza/ecosystem-simulation/raw/main/out/artifacts/ecosystem_jar/ecosystem.jar){: .btn}
