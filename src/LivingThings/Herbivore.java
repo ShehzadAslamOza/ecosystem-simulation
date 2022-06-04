@@ -28,7 +28,7 @@ public class Herbivore extends Animal {
         this.color = Color.GRAY;
         this.speed = 1;
         this.timeToLive = State.HERBIVORE_TIME_TO_LIVE;
-        this.image = ImageReader("assests/deer.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\deer.png");
         this.shape = new Circle(size,center,color,image);
     }
 
@@ -43,7 +43,7 @@ public class Herbivore extends Animal {
         this.color = Color.GRAY;
         this.speed = 1;
         this.timeToLive = State.HERBIVORE_TIME_TO_LIVE;
-        this.image = ImageReader("assests/deer.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\deer.png");
         this.shape = new Circle(size,center,color,image);
     }
 

@@ -29,7 +29,7 @@ public class Carnivore extends Animal {
         this.color = Color.CYAN;
         this.speed = 2;
         this.timeToLive = State.CARNIVORE_TIME_TO_LIVE;
-        this.image = ImageReader("assests/tiger.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\tiger.png");
         this.shape = new Circle(size,center,color,image);
     }
 
@@ -44,7 +44,7 @@ public class Carnivore extends Animal {
         this.color = Color.CYAN;
         this.speed = 2;
         this.timeToLive = State.CARNIVORE_TIME_TO_LIVE;
-        this.image = ImageReader("assests/tiger.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\tiger.png");
         this.shape = new Circle(size,center,color,image);
     }
 

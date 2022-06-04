@@ -30,7 +30,7 @@ public class Plant extends LivingThing {
         this.center = new Point(rand.nextInt(1, Board.B_WIDTH), rand.nextInt(1,Board.B_HEIGHT));
         this.color = Color.GREEN;
         this.speed = 0;
-        this.image = ImageReader("assests/plant.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\plant.png");
         this.shape = new Circle(size,center,color,image);
     }
 

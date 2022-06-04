@@ -31,7 +31,7 @@ public class Cannibal extends Carnivore{
         this.color = Color.RED;
         this.speed = 2;
         this.timeToLive = State.CANNIBAL_TIME_TO_LIVE;
-        this.image = ImageReader("assests/bear.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\bear.png");
         this.shape = new Circle(size,center,color,image);
     }
 
@@ -46,7 +46,7 @@ public class Cannibal extends Carnivore{
         this.color = Color.RED;
         this.speed = 2;
         this.timeToLive = State.CANNIBAL_TIME_TO_LIVE;
-        this.image = ImageReader("assests/bear.png");
+        this.image = ImageReader("C:\\Users\\shehzad\\IdeaProjects\\ecosystem\\out\\assests\\bear.png");
         this.shape = new Circle(size,center,color,image);
     }
 

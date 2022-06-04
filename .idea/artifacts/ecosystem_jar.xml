@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ecosystem:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ecosystem_jar</output-path>
+    <root id="archive" name="ecosystem.jar">
+      <element id="module-output" name="ecosystem" />
+    </root>
+  </artifact>
+</component>
