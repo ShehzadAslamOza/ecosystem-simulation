@@ -34,11 +34,11 @@ It simulates a basic ecosystem where Herbivores eat plants, Carnivores eat Herbi
 
 Snip From the Simulation
 
-<img src="out/assests/GameSnip1.png" alt="Simulation" width="800"/>
+<img src="out/assests/GameSnip1.PNG" alt="Simulation" width="800"/>
 
 Right Click on the screen to change the sprites
 
-<img src="out/assests/GameSnip2.png" alt="Simulation" width="800"/>
+<img src="out/assests/GameSnip2.PNG" alt="Simulation" width="800"/>
 
 ---
 
